@@ -23,6 +23,7 @@ $(function () {
 
 });
 
+// Show Current Date/Time
 function showDate() {
   const currentDate = dayjs();
   const formattedDate = currentDate.format('MM-DD-YYYY');
@@ -35,3 +36,24 @@ function showDate() {
 }
 
 showDate()
+let savedDiv = ""
+
+// QuerySelectors for Save Buttons
+const saveButtons = document.querySelectorAll('.saveBtn');
+const description = document.querySelectorAll('.description');
+
+//Load Button Function
+
+
+//Save Button Function
+saveButtons.forEach(function(save) {
+  save.addEventListener('click', function() {
+    let description = document.querySelectorAll('.description');
+    description.forEach(function(descriptionInside, i) {
+      localStorage.setItem("Key" + i, descriptionInside.value)
+    })
+  })
+})
+
+
+
