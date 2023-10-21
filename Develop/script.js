@@ -1,6 +1,6 @@
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
-// in the html.
+// in the html. -Done
 $(function () {
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
@@ -17,9 +17,9 @@ $(function () {
   //
   // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
-  // attribute of each time-block be used to do this?
+  // attribute of each time-block be used to do this? -Done
   //
-  // TODO: Add code to display the current date in the header of the page.
+  // TODO: Add code to display the current date in the header of the page. -Done
 
 });
 
@@ -34,26 +34,28 @@ function showDate() {
   let currentDay = document.querySelector('#currentDay')
   currentDay.textContent = `${formattedDate}  ${formattedTime}`
 }
-
 showDate()
-let savedDiv = ""
 
-// QuerySelectors for Save Buttons
-const saveButtons = document.querySelectorAll('.saveBtn');
-const description = document.querySelectorAll('.description');
+//Ensures HTML is fully loaded before running the code below
+document.addEventListener("DOMContentLoaded", function() {
+  //QuerySelectors
+  const saveButtons = document.querySelectorAll('.saveBtn');
+  const description = document.querySelectorAll('.description');
 
-//Load Button Function
-
-
-//Save Button Function
-saveButtons.forEach(function(save) {
-  save.addEventListener('click', function() {
-    let description = document.querySelectorAll('.description');
-    description.forEach(function(descriptionInside, i) {
-      localStorage.setItem("Key" + i, descriptionInside.value)
+  //Load Saved Data from Local Storage Funtionality
+  for (i = 0; i < description.length; i++) {
+    const savedDescription = localStorage.getItem(`Key ${i}`)
+    if (savedDescription !== null) {
+      description[i].value = savedDescription
+    }
+  }
+  //Save Button Functionality
+  saveButtons.forEach(function(save) {
+    save.addEventListener('click', function() {
+      let description = document.querySelectorAll('.description');
+      description.forEach(function(descriptionInside, i) {
+        localStorage.setItem(`Key ${i}`, descriptionInside.value)
+      })
     })
   })
 })
-
-
-
