@@ -26,15 +26,39 @@ $(function () {
 // Show Current Date/Time
 function showDate() {
   const currentDate = dayjs();
-  const formattedDate = currentDate.format('MM-DD-YYYY');
+  const formattedDate = currentDate.format('MM-DD-YYYY hh:mm:ss'); // 
 
-  const currentTime = dayjs();
-  const formattedTime = currentTime.format('hh:mm:ss')
-
-  let currentDay = document.querySelector('#currentDay')
-  currentDay.textContent = `${formattedDate}  ${formattedTime}`
+  let currentDay = document.querySelector('#currentDay');
+  currentDay.textContent = formattedDate;
 }
+
+// Update Past, Present, Future Colors
+function updateTimeBlockClasses() {
+  const currentHour = dayjs().hour();
+
+  const timeBlocks = document.querySelectorAll('.time-block');
+  timeBlocks.forEach((block) => {
+    const blockHour = parseInt(block.id.split('-')[1], 10); // Extract the hour from the block's id
+
+    if (blockHour < currentHour) {
+      block.classList.remove('present', 'future');
+      block.classList.add('past');
+    } else if (blockHour === currentHour) {
+      block.classList.remove('past', 'future');
+      block.classList.add('present');
+    } else {
+      block.classList.remove('past', 'present');
+      block.classList.add('future');
+    }
+  });
+}
+
+//Show Date
 showDate()
+//Updates Time Blocks
+updateTimeBlockClasses()
+//Set Interval to refresh
+setInterval(updateTimeBlockClasses, 1000);
 
 //Ensures HTML is fully loaded before running the code below
 document.addEventListener("DOMContentLoaded", function() {
