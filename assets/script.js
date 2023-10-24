@@ -31,10 +31,8 @@ function updateTimeBlockClasses() {
 
 //Show Date
 showDate()
-//Updates Time Blocks
-updateTimeBlockClasses()
-//Set Interval to refresh time blocks
-setInterval(updateTimeBlockClasses, 1000);
+//Set Interval to refresh time block updates
+setInterval(updateTimeBlockClasses(), 1000);
 
 //Ensures HTML is fully loaded before running the code below
 document.addEventListener("DOMContentLoaded", function() {
